@@ -28,3 +28,24 @@ def avaliar(dados):
         )
 
     return alertas
+
+def resposta_automatica(dados):
+
+    acoes = []
+
+    if dados["temperatura"] > 75:
+        acoes.append(
+            "Modo resfriamento ativado."
+        )
+
+    if dados["saude_antena"] < 70:
+        acoes.append(
+            "Reconfiguração automática da antena."
+        )
+
+    if dados["latencia"] > 100:
+        acoes.append(
+            "Redistribuição de tráfego."
+        )
+
+    return acoes
