@@ -17,7 +17,7 @@ client = Client(
 )
 
 
-def llm(prompt, system=None, max_tokens=800, temperature=0.3):
+def llm(prompt, system=None, max_tokens=1500, temperature=0.3):
     """Envia prompt ao gpt-oss:120b via Ollama Cloud."""
     messages = []
     if system:
@@ -49,44 +49,95 @@ class MissionEngine:
     def __init__(self):
         self.trilha = TRILHA
         self.system_prompt = load_system_prompt()
+        self.historico = []
+        self.dados_atuais = None
 
     def is_ready(self):
         return True
 
     def status_snapshot(self):
-        dados = coletar()
+        self.dados_atuais = coletar()
+        
+        self.atualizar_historico(self.dados_atuais)
         
         return (
-            f"Latência: {dados['latencia']} ms\n"
-            f"Throughput: {dados['throughput']} Mbps\n"
-            f"Saúde Antena: {dados['saude_antena']}%\n"
-            f"Beam Steering: {dados['beam_steering']}%\n"
-            f"Temperatura: {dados['temperatura']}°C"
+            f"Latência: {self.dados_atuais['latencia']} ms\n"
+            f"Throughput: {self.dados_atuais['throughput']} Mbps\n"
+            f"Saúde Antena: {self.dados_atuais['saude_antena']}%\n"
+            f"Beam Steering: {self.dados_atuais['beam_steering']}%\n"
+            f"Temperatura: {self.dados_atuais['temperatura']}°C"
         )
 
+    def mostrar_historico(self):
 
-    def analyze(self, pergunta_usuario):
-        dados = coletar()
+        if not self.historico:
+            return "Nenhum ciclo registrado."
+
+        texto = "\n=== HISTÓRICO DOS ÚLTIMOS CICLOS ===\n"
+
+        for i, ciclo in enumerate(self.historico, start=1):
+
+            texto += (
+                f"\nCiclo {i}\n"
+                f"Latência: {ciclo['latencia']} ms\n"
+                f"Throughput: {ciclo['throughput']} Mbps\n"
+                f"Saúde Antena: {ciclo['saude_antena']}%\n"
+                f"Beam Steering: {ciclo['beam_steering']}%\n"
+                f"Temperatura: {ciclo['temperatura']}°C\n"
+            )
+
+        return texto
+
+    def atualizar_historico(self, dados):
+        self.historico.append(dados.copy())
+
+        if len(self.historico) > 5:
+            self.historico.pop(0)
+
+    def analyze(self, pergunta_usuario):        
+        if self.dados_atuais is None:
+
+            self.dados_atuais = coletar()
+
+            self.atualizar_historico(self.dados_atuais)
         
-        alertas = avaliar(dados)
+        alertas = avaliar(self.dados_atuais)
         
-        acoes = resposta_automatica(dados)
+        acoes = resposta_automatica(self.dados_atuais)
         
         prompt = f"""
-        TELEMETRIA:
+        CONTEXTO
+        
+        Você está analisando um satélite ConnectSat.
+        
+        HISTÓRICO DOS ÚLTIMOS CICLOS
+        
+        {self.historico}
+        
+        TELEMETRIA ATUAL
 
-        {dados}
+        {self.dados_atuais}
 
-        ALERTAS:
+        ALERTAS IDENTIFICADOS
 
         {alertas}
 
         AÇÕES AUTOMÁTICAS EXECUTADAS
         
         {acoes}
+        
+        IMPORTANTE
+        
+        Analise tendências entre os ciclos anteriores e o ciclo atual.
 
-        PERGUNTA:
+        Se um parâmetro estiver piorando ao longo dos ciclos, destaque essa tendência.
+
+        PERGUNTA DO OPERADOR
         {pergunta_usuario}
         """
+        
+        print("\n=== HISTÓRICO ===")
+        for ciclo in self.historico:
+            print(ciclo)
         
         return llm(prompt, system=self.system_prompt)

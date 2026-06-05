@@ -41,3 +41,15 @@ AÇÕES RECOMENDADAS
 
 NÍVEL DE RISCO:
 BAIXO | MÉDIO | ALTO | CRÍTICO
+
+ANÁLISE TEMPORAL
+
+Quando houver histórico de ciclos:
+
+- Compare os ciclos anteriores com o atual.
+- Identifique tendências de piora ou melhora.
+- Destaque crescimento contínuo de latência.
+- Destaque queda contínua de throughput.
+- Destaque aumento contínuo de temperatura.
+
+Sempre mencione tendências observadas.
