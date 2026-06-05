@@ -4,6 +4,8 @@ import os
 from ollama import Client
 from dotenv import load_dotenv
 from pathlib import Path
+from src.telemetria import coletar
+from src.alertas import avaliar, resposta_automatica
 
 load_dotenv()
 
@@ -49,32 +51,42 @@ class MissionEngine:
         self.system_prompt = load_system_prompt()
 
     def is_ready(self):
-        # Troquem para True quando analyze() estiver implementado
-        return False
+        return True
 
     def status_snapshot(self):
-        """Retorna texto resumindo o estado atual da telemetria."""
-
-        # TODO: chamar telemetria.coletar() e formatar legivelmente
-        return "🛠 status_snapshot() ainda não implementado."
+        dados = coletar()
+        
+        return (
+            f"Latência: {dados['latencia']} ms\n"
+            f"Throughput: {dados['throughput']} Mbps\n"
+            f"Saúde Antena: {dados['saude_antena']}%\n"
+            f"Beam Steering: {dados['beam_steering']}%\n"
+            f"Temperatura: {dados['temperatura']}°C"
+        )
 
 
     def analyze(self, pergunta_usuario):
-        """Analisa a pergunta com base na telemetria + alertas + IA."""
-        # TODO (foco do trabalho):
-        # 1. Coletar dados via src.telemetria.coletar()
-        # 2. Avaliar alertas via src.alertas.avaliar(dados)
-        # 3. Montar prompt com dados + alertas + pergunta
-        # 4. Chamar llm(prompt, system=self.system_prompt)
-        # 5. Retornar a resposta
-        llm(pergunta_usuario, system=self.system_prompt)
+        dados = coletar()
+        
+        alertas = avaliar(dados)
+        
+        acoes = resposta_automatica(dados)
+        
+        prompt = f"""
+        TELEMETRIA:
 
-        return (
-            "🛠 Implementação pendente.\n\n"
-            "Olá! A interface CLI está funcionando, mas a lógica\n"
-            "de análise ainda não foi conectada. O grupo precisa:\n\n"
-            " 1. Completar src/telemetria.py\n"
-            " 2. Completar src/alertas.py\n"
-            " 3. Escrever o system prompt em prompts/system_prompt.md\n"
-            " 4. Sobrescrever analyze() em src/engine.py"
-        )
+        {dados}
+
+        ALERTAS:
+
+        {alertas}
+
+        AÇÕES AUTOMÁTICAS EXECUTADAS
+        
+        {acoes}
+
+        PERGUNTA:
+        {pergunta_usuario}
+        """
+        
+        return llm(prompt, system=self.system_prompt)
