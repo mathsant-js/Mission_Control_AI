@@ -10,7 +10,7 @@ load_dotenv()
 TRILHA = "connectsat"
 
 client = Client(
-    host="https: /ollama.com",
+    host="https://ollama.com",
     headers={"Authorization": "Bearer " + os.environ.get("OLLAMA_API_KEY", "")},
 )
 
@@ -59,21 +59,22 @@ class MissionEngine:
         return "🛠 status_snapshot() ainda não implementado."
 
 
-def analyze(self, pergunta_usuario):
-    """Analisa a pergunta com base na telemetria + alertas + IA."""
-    # TODO (foco do trabalho):
-    # 1. Coletar dados via src.telemetria.coletar()
-    # 2. Avaliar alertas via src.alertas.avaliar(dados)
-    # 3. Montar prompt com dados + alertas + pergunta
-    # 4. Chamar llm(prompt, system=self.system_prompt)
-    # 5. Retornar a resposta
+    def analyze(self, pergunta_usuario):
+        """Analisa a pergunta com base na telemetria + alertas + IA."""
+        # TODO (foco do trabalho):
+        # 1. Coletar dados via src.telemetria.coletar()
+        # 2. Avaliar alertas via src.alertas.avaliar(dados)
+        # 3. Montar prompt com dados + alertas + pergunta
+        # 4. Chamar llm(prompt, system=self.system_prompt)
+        # 5. Retornar a resposta
+        llm(pergunta_usuario, system=self.system_prompt)
 
-    return (
-        "🛠 Implementação pendente.\n\n"
-        "Olá! A interface CLI está funcionando, mas a lógica\n"
-        "de análise ainda não foi conectada. O grupo precisa:\n\n"
-        " 1. Completar src/telemetria.py\n"
-        " 2. Completar src/alertas.py\n"
-        " 3. Escrever o system prompt em prompts/system_prompt.md\n"
-        " 4. Sobrescrever analyze() em src/engine.py"
-    )
+        return (
+            "🛠 Implementação pendente.\n\n"
+            "Olá! A interface CLI está funcionando, mas a lógica\n"
+            "de análise ainda não foi conectada. O grupo precisa:\n\n"
+            " 1. Completar src/telemetria.py\n"
+            " 2. Completar src/alertas.py\n"
+            " 3. Escrever o system prompt em prompts/system_prompt.md\n"
+            " 4. Sobrescrever analyze() em src/engine.py"
+        )

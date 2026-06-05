@@ -3,6 +3,8 @@ ollama==0.4.7
 python-dotenv==1.0.1
 
 # Opcional, dependendo da implementação:
+pyfiglet
+prompt_toolkit
 rich==13.9.4
 # pandas==2.2.3 (manipulação de dados)
 # matplotlib==3.9.2 (gráficos)
