@@ -60,13 +60,10 @@ class MissionEngine:
         
         self.atualizar_historico(self.dados_atuais)
         
-        return (
-            f"Latência: {self.dados_atuais['latencia']} ms\n"
-            f"Throughput: {self.dados_atuais['throughput']} Mbps\n"
-            f"Saúde Antena: {self.dados_atuais['saude_antena']}%\n"
-            f"Beam Steering: {self.dados_atuais['beam_steering']}%\n"
-            f"Temperatura: {self.dados_atuais['temperatura']}°C"
-        )
+        return {
+            "dados": self.dados_atuais,
+            "alertas": avaliar(self.dados_atuais)
+        }
 
     def mostrar_historico(self):
 
@@ -135,9 +132,5 @@ class MissionEngine:
         PERGUNTA DO OPERADOR
         {pergunta_usuario}
         """
-        
-        print("\n=== HISTÓRICO ===")
-        for ciclo in self.historico:
-            print(ciclo)
         
         return llm(prompt, system=self.system_prompt)

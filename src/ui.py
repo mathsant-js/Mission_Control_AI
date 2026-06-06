@@ -3,6 +3,8 @@
 from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
+from rich.table import Table
+from rich.progress_bar import ProgressBar
 from prompt_toolkit import PromptSession
 from prompt_toolkit.styles import Style
 import pyfiglet
@@ -26,6 +28,99 @@ def show_banner():
         )
     )
 
+def render_status(dados):
+
+    tabela = Table(
+        title="📡 CONNECTSAT TELEMETRY",
+        border_style="#06B6D4"
+    )
+
+    tabela.add_column("Parâmetro")
+    tabela.add_column("Valor")
+
+    tabela.add_row(
+        "Latência",
+        f"{dados['latencia']} ms"
+    )
+
+    tabela.add_row(
+        "Throughput",
+        f"{dados['throughput']} Mbps"
+    )
+
+    tabela.add_row(
+        "Saúde Antena",
+        f"{dados['saude_antena']} %"
+    )
+
+    tabela.add_row(
+        "Beam Steering",
+        f"{dados['beam_steering']} %"
+    )
+
+    tabela.add_row(
+        "Temperatura",
+        f"{dados['temperatura']} °C"
+    )
+
+    console.print(tabela)
+    
+def render_barras(dados):
+
+    console.print("\n[bold]Latência[/bold]")
+    console.print(
+        ProgressBar(
+            total=150,
+            completed=dados["latencia"]
+        )
+    )
+
+    console.print("\n[bold]Throughput[/bold]")
+    console.print(
+        ProgressBar(
+            total=500,
+            completed=dados["throughput"]
+        )
+    )
+
+    console.print("\n[bold]Saúde Antena[/bold]")
+    console.print(
+        ProgressBar(
+            total=100,
+            completed=dados["saude_antena"]
+        )
+    )
+
+    console.print("\n[bold]Beam Steering[/bold]")
+    console.print(
+        ProgressBar(
+            total=100,
+            completed=dados["beam_steering"]
+        )
+    )
+
+    console.print("\n[bold]Temperatura[/bold]")
+    console.print(
+        ProgressBar(
+            total=100,
+            completed=dados["temperatura"]
+        )
+    )
+
+def render_alertas(alertas):
+
+    if not alertas:
+        return
+
+    texto = "\n".join(alertas)
+
+    console.print(
+        Panel(
+            texto,
+            title="⚠ ALERTAS",
+            border_style="red"
+        )
+    )
 
 def show_response(text):
     """Renderiza resposta da IA em painel com timestamp."""
@@ -50,11 +145,19 @@ def run_cli(engine):
         if user_input == "/exit":
             break
         if user_input == "/help":
-            console.print("Comandos: /help /status /about /clear /exit")
+            console.print("Comandos: /help /status /history /about /clear /exit")
             continue
         if user_input == "/status":
-            show_response(engine.status_snapshot())
+            status = engine.status_snapshot()
+            
+            render_status(status["dados"])
+            render_barras(status["dados"])
+            render_alertas(status["alertas"])
             continue
+        if user_input == "/history":
+            show_response(
+                engine.mostrar_historico()
+            )
         if user_input == "/clear":
             console.clear()
             show_banner()
