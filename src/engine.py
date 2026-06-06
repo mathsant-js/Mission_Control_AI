@@ -90,9 +90,11 @@ class MissionEngine:
     def analyze(self, pergunta_usuario):        
         if self.dados_atuais is None:
 
-            self.dados_atuais = coletar()
-
-            self.atualizar_historico(self.dados_atuais)
+            return (
+                "Nenhuma telemetria disponível.\n\n"
+                "Execute o comando /status antes de solicitar "
+                "uma análise da missão."
+            )
         
         alertas = avaliar(self.dados_atuais)
         

@@ -206,10 +206,6 @@ def render_alertas(alertas):
         )
     
 def render_historico(historico):
-
-    console.print()
-    console.print()
-    console.print()
     
     if not historico:
 
@@ -221,6 +217,10 @@ def render_historico(historico):
         )
 
         return
+
+    console.print()
+    console.print()
+    console.print()
 
     console.print(
         Rule(
@@ -378,6 +378,7 @@ def run_cli(engine):
         if user_input == "/history":
             historico = engine.mostrar_historico()
             render_historico(historico)
+            continue
         if user_input == "/about":
             console.print(
                 Panel.fit(
