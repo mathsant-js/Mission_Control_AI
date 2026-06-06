@@ -1,0 +1,37 @@
+[
+    {
+        "latencia": 80,
+        "throughput": 250,
+        "saude_antena": 90,
+        "beam_steering": 95,
+        "temperatura": 50
+    },
+    {
+        "latencia": 100,
+        "throughput": 200,
+        "saude_antena": 85,
+        "beam_steering": 90,
+        "temperatura": 60
+    },
+    {
+        "latencia": 120,
+        "throughput": 150,
+        "saude_antena": 75,
+        "beam_steering": 85,
+        "temperatura": 70
+    },
+    {
+        "latencia": 135,
+        "throughput": 100,
+        "saude_antena": 65,
+        "beam_steering": 75,
+        "temperatura": 80
+    },
+    {
+        "latencia": 145,
+        "throughput": 75,
+        "saude_antena": 55,
+        "beam_steering": 65,
+        "temperatura": 88
+    }
+]
