@@ -68,22 +68,18 @@ class MissionEngine:
     def mostrar_historico(self):
 
         if not self.historico:
-            return "Nenhum ciclo registrado."
+            return []
 
-        texto = "\n=== HISTÓRICO DOS ÚLTIMOS CICLOS ===\n"
+        historico = []
 
-        for i, ciclo in enumerate(self.historico, start=1):
+        for ciclo in self.historico:
 
-            texto += (
-                f"\nCiclo {i}\n"
-                f"Latência: {ciclo['latencia']} ms\n"
-                f"Throughput: {ciclo['throughput']} Mbps\n"
-                f"Saúde Antena: {ciclo['saude_antena']}%\n"
-                f"Beam Steering: {ciclo['beam_steering']}%\n"
-                f"Temperatura: {ciclo['temperatura']}°C\n"
-            )
+            historico.append({
+                "dados": ciclo,
+                "alertas": avaliar(ciclo)
+            })
 
-        return texto
+        return historico
 
     def atualizar_historico(self, dados):
         self.historico.append(dados.copy())

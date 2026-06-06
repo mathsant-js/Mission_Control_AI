@@ -4,6 +4,7 @@ from rich.console import Console
 from rich.align import Align
 from rich.panel import Panel
 from rich.text import Text
+from rich.rule import Rule
 from rich.table import Table
 from rich.progress_bar import ProgressBar
 from prompt_toolkit import PromptSession
@@ -185,17 +186,150 @@ def render_barras(dados):
 def render_alertas(alertas):
 
     if not alertas:
+        console.print(
+                Panel(
+                    "Nenhum alerta identificado.",
+                    title=f"✓ Ciclo sem Alertas",
+                    border_style="green"
+                )
+            )
+    else:
+
+        texto = "\n".join(alertas)
+
+        console.print(
+            Panel(
+                texto,
+                title="⚠ ALERTAS",
+                border_style="red"
+            )
+        )
+    
+def render_historico(historico):
+
+    console.print()
+    console.print()
+    console.print()
+    
+    if not historico:
+
+        console.print(
+            Panel(
+                "Nenhum ciclo registrado.",
+                border_style="yellow"
+            )
+        )
+
         return
 
-    texto = "\n".join(alertas)
-
     console.print(
-        Panel(
-            texto,
-            title="⚠ ALERTAS",
-            border_style="red"
+        Rule(
+            "[bold #06B6D4]HISTÓRICO DOS ÚLTIMOS CICLOS"
         )
     )
+
+    for indice, ciclo in enumerate(historico, start=1):
+
+        dados = ciclo["dados"]
+
+        alertas = ciclo["alertas"]
+
+        tabela = Table(
+            title=f"📡 Ciclo {indice}",
+            border_style="#06B6D4"
+        )
+
+        tabela.add_column("Parâmetro")
+        tabela.add_column("Valor")
+
+        tabela.add_row(
+            "Latência",
+            f"{dados['latencia']} ms"
+        )
+
+        tabela.add_row(
+            "Throughput",
+            f"{dados['throughput']} Mbps"
+        )
+
+        tabela.add_row(
+            "Saúde Antena",
+            f"{dados['saude_antena']} %"
+        )
+
+        tabela.add_row(
+            "Beam Steering",
+            f"{dados['beam_steering']} %"
+        )
+
+        tabela.add_row(
+            "Temperatura",
+            f"{dados['temperatura']} °C"
+        )
+
+        console.print()
+        console.print()
+        console.print(tabela)
+        
+        console.print("\nLatência")
+        console.print(
+            ProgressBar(
+                total=150,
+                completed=dados["latencia"]
+            )
+        )
+
+        console.print("\nThroughput")
+        console.print(
+            ProgressBar(
+                total=500,
+                completed=dados["throughput"]
+            )
+        )
+
+        console.print("\nSaúde Antena")
+        console.print(
+            ProgressBar(
+                total=100,
+                completed=dados["saude_antena"]
+            )
+        )
+
+        console.print("\nBeam Steering")
+        console.print(
+            ProgressBar(
+                total=100,
+                completed=dados["beam_steering"]
+            )
+        )
+
+        console.print("\nTemperatura")
+        console.print(
+            ProgressBar(
+                total=100,
+                completed=dados["temperatura"]
+            )
+        )
+        
+        if alertas:
+
+            console.print(
+                Panel(
+                    "\n".join(alertas),
+                    title=f"⚠ Alertas do Ciclo {indice}",
+                    border_style="red"
+                )
+            )
+        
+        else:
+
+            console.print(
+                Panel(
+                    "Nenhum alerta identificado.",
+                    title=f"✓ Ciclo {indice}",
+                    border_style="green"
+                )
+            )
 
 def show_response(text):
     """Renderiza resposta da IA em painel com timestamp."""
@@ -242,9 +376,8 @@ def run_cli(engine):
             render_alertas(status["alertas"])
             continue
         if user_input == "/history":
-            show_response(
-                engine.mostrar_historico()
-            )
+            historico = engine.mostrar_historico()
+            render_historico(historico)
         if user_input == "/about":
             console.print(
                 Panel.fit(
