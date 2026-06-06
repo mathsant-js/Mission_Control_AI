@@ -238,6 +238,7 @@ def run_cli(engine):
             
             render_status(status["dados"])
             render_barras(status["dados"])
+            console.print()
             render_alertas(status["alertas"])
             continue
         if user_input == "/history":
