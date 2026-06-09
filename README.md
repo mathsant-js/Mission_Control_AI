@@ -98,6 +98,98 @@ Implementada utilizando Rich:
 
 <br>
 
+# 🌎 Problema Real e Impacto Terrestre
+
+A conectividade rural ainda representa um desafio em diversas regiões do Brasil e do mundo. Comunidades afastadas dos grandes centros frequentemente possuem acesso limitado à internet, dificultando o acesso à educação, saúde, serviços públicos e oportunidades econômicas.
+
+O projeto ConnectSat busca simular a operação de um satélite responsável por fornecer conectividade para essas regiões, permitindo que operadores identifiquem rapidamente falhas técnicas que possam comprometer a disponibilidade do serviço.
+
+Ao utilizar Inteligência Artificial Generativa para apoiar a tomada de decisão operacional, o sistema contribui para reduzir o tempo de resposta diante de incidentes e aumentar a confiabilidade da infraestrutura de comunicação.
+
+<br>
+
+# 💼 Proposta de Valor / Modelo de Negócio
+## 1. Qual problema real terrestre esta missão resolve?
+
+O ConnectSat tem como objetivo minimizar interrupções em serviços de conectividade rural fornecidos por satélites de telecomunicação.
+
+Quando ocorrem falhas como aumento de latência, degradação de antenas ou superaquecimento de equipamentos, comunidades inteiras podem perder acesso à internet, afetando atividades essenciais como aulas remotas, telemedicina, serviços bancários digitais e comunicação de emergência.
+
+O Mission Control AI auxilia operadores na identificação precoce desses problemas, permitindo respostas mais rápidas e reduzindo o impacto social causado por indisponibilidades prolongadas.
+
+<br>
+
+## 2. Quem paga pela solução?
+
+O modelo pode ser adotado por diferentes setores.
+
+**Setor Público**
+
+Órgãos governamentais responsáveis pela inclusão digital e conectividade regional podem utilizar a solução para monitorar satélites que atendem escolas, postos de saúde e comunidades isoladas.
+
+**Exemplos:**
+
+- Governo Federal
+- Governos Estaduais
+- Programas de inclusão digital
+- Agências reguladoras e de infraestrutura
+- Setor Privado
+
+**Empresas de telecomunicações, operadoras de satélite e provedores de internet rural podem utilizar o sistema para aumentar a eficiência operacional e reduzir custos causados por falhas.**
+
+**Exemplos:**
+
+- Operadoras de telecomunicações
+- Empresas de satélites
+- Provedores regionais de internet
+- Cooperativas rurais
+- Modelo Híbrido
+
+O cenário mais provável é uma operação híbrida, onde governos contratam empresas privadas para fornecer conectividade a regiões remotas, utilizando ferramentas de monitoramento inteligente como apoio operacional.
+
+<br>
+
+## 3. Métrica de Impacto
+
+Caso um satélite operasse com disponibilidade próxima de 100% durante um ano inteiro, o impacto poderia ser percebido diretamente pela população atendida.
+
+Como estimativa plausível para um único satélite regional:
+
+Mais de 500 escolas rurais conectadas continuamente
+Aproximadamente 200 postos de saúde com acesso estável à telemedicina
+Mais de 50 mil pessoas beneficiadas por conectividade confiável
+Redução significativa de interrupções em serviços digitais essenciais
+
+Além do benefício social, a manutenção preventiva e a rápida identificação de falhas contribuem para reduzir custos operacionais e aumentar a vida útil dos equipamentos de telecomunicação.
+
+<br>
+
+## 4. Modelo de Negócio
+
+O modelo mais adequado para o Mission Control AI é o de Software as a Service (SaaS).
+
+Nesse formato, operadoras de satélite e organizações contratantes pagariam uma assinatura para utilizar a plataforma de monitoramento inteligente, recebendo análises automáticas, identificação de alertas e apoio à tomada de decisão operacional.
+
+Uma evolução futura poderia incluir o modelo Data as a Service (DaaS), fornecendo indicadores históricos, métricas operacionais e relatórios analíticos para gestores, órgãos reguladores e empresas do setor de telecomunicações.
+
+A receita seria baseada em assinaturas mensais ou anuais, variando de acordo com a quantidade de satélites monitorados e o volume de dados processados.
+
+<br>
+
+## 🎯 Beneficiários da Solução
+
+Os principais beneficiários da missão são:
+
+Estudantes de regiões rurais que dependem da internet para atividades educacionais.
+Profissionais da saúde que utilizam telemedicina para atendimento remoto.
+Pequenos produtores rurais que necessitam de conectividade para gestão e comercialização.
+Comunidades isoladas que dependem de serviços digitais para comunicação e acesso a serviços públicos.
+Operadoras de telecomunicações que precisam garantir qualidade e disponibilidade do serviço.
+
+Ao melhorar a confiabilidade da infraestrutura de conectividade rural, o ConnectSat gera impacto econômico, social e educacional para milhares de pessoas que dependem da comunicação via satélite.
+
+<br>
+
 # 🚀 Como executar
 
 ## 1. Clone o repositório
