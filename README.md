@@ -9,7 +9,7 @@ Desenvolvido para a Global Solution 2026.1 da FIAP na trilha ConnectSat.
 # 👥 Integrantes
 
 * Guilherme Vinciguerra Carvalho — RM: 571951 — Turma: 1CCPI
-* Marcos Peterson Martins Pereira — RM: XXXXXX — Turma: 1CCPI
+* Marcos Peterson Martins Pereira — RM: 573857 — Turma: 1CCPI
 * Matheus Jorge Santana — RM: 574166 — Turma: 1CCPI
 
 <br>
