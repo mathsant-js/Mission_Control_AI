@@ -466,7 +466,7 @@ A IA identifica:
 
 🎥 Assistir no YouTube:
 
-*Será adicionado...*
+> https://www.youtube.com/watch?v=E9l7RzVA0mk
 
 <br>
 
